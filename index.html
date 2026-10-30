@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POLISYNC - 귀여운 원숭이 주무관과 함께하는 행정학 연구소 🐵</title>
+  <link rel="stylesheet" href="style.css?v=2">
+  <!-- Google Fonts: Gaegu & Jua for cute friendly vibes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Jua&family=Noto+Sans+KR:wght@400;600;700;900&display=swap"
+    rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="mascot-avatar-container">
+          <img src="assets/monkey_peace.jpg" alt="원숭이 행정관" class="mascot-img pulse-anim"
+            style="width: 52px; height: 52px; border-radius: 50%;">
+          <span class="badge-status">수습 주무관</span>
+        </div>
+        <div class="brand-text">
+          <h2>몽키 행정소 ✨</h2>
+          <span>POLISYNC 정책 연구소</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="dashboard">
+          <i class="fa-solid fa-chart-pie"></i>
+          <span>행정 모니터링 룸</span>
+        </button>
+        <button class="nav-item" data-tab="policy-builder">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>몽키 정책 입안소</span>
+        </button>
+        <button class="nav-item" data-tab="governance-sim">
+          <i class="fa-solid fa-gamepad"></i>
+          <span>시민 반응 시뮬레이터</span>
+        </button>
+        <button class="nav-item" data-tab="policy-list">
+          <i class="fa-solid fa-scroll"></i>
+          <span>생기부 세특 보고서</span>
+        </button>
+      </nav>
+
+      <!-- Cute Mascot Speech Bubble in Sidebar -->
+      <div class="sidebar-mascot-card">
+        <div class="bubble-speech">
+          <p id="mascot-sidebar-msg">"고2 몽키 행정관님! 오늘도 우리 지역을 더 살기 좋게 만들어봐요! 🍌"</p>
+        </div>
+        <div class="mascot-mini-row">
+          <img src="assets/monkey_sparkle.png" alt="응원하는 몽키" class="mini-mascot bounce-anim"
+            style="width: 44px; height: 44px; border-radius: 50%;">
+          <div class="mascot-meta">
+            <strong>행정학과 합격 기원!</strong>
+            <small>학생부 맞춤형 B/C 탑재</small>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="greeting-row">
+            <h1 id="page-title">행정 모니터링 & 정책 현황 대시보드 🐾</h1>
+            <img src="assets/monkey_look.jpg" class="topbar-avatar" alt="원숭이"
+              style="width: 40px; height: 40px; border-radius: 50%;">
+          </div>
+          <p class="subtitle">어려운 사회 문제도 귀엽고 스마트하게! 데이터와 거버넌스로 해결책을 설계해요.</p>
+        </div>
+        <div class="topbar-right">
+          <button class="btn btn-outline btn-cute" id="load-sample-btn">
+            <i class="fa-solid fa-wand-magic-sparkles" style="color:#8b5cf6;"></i> 예시 정책 불러오기
+          </button>
+          <button class="btn btn-primary btn-cute-primary" id="quick-create-btn">
+            <i class="fa-solid fa-plus"></i> 새 정책 입안하기!
+          </button>
+        </div>
+      </header>
+
+      <!-- TAB 1: 대시보드 -->
+      <section id="tab-dashboard" class="tab-pane active">
+        <!-- Mascot Banner -->
+        <div class="cute-welcome-banner">
+          <div class="banner-text">
+            <h3><span class="highlight">몽키 행정관님</span>, 오늘 연구 현황을 브리핑해 드릴게요! 📑</h3>
+            <p>비용편익비(B/C)가 1.0을 넘으면 경제적 타당성 합격! 주민 수용성까지 높이면 완벽한 정책이에요.</p>
+          </div>
+          <img src="assets/monkey_dance.png" class="banner-mascot floating-anim" alt="춤추는 원숭이"
+            style="width: 80px; height: 80px; object-fit: contain;">
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="stats-grid">
+          <div class="stat-card cute-card">
+            <div class="stat-icon-wrapper">
+              <img src="assets/monkey_peace.jpg" class="stat-thumb" alt=""
+                style="width: 48px; height: 48px; border-radius: 50%;">
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">연구 중인 공공 정책</span>
+              <h3 id="stat-policy-count">3 건</h3>
+              <span class="stat-meta text-success"><i class="fa-solid fa-heart"></i> 열정적인 연구 진행 중</span>
+            </div>
+          </div>
+
+          <div class="stat-card cute-card">
+            <div class="stat-icon-wrapper">
+              <img src="assets/monkey_sparkle.png" class="stat-thumb" alt=""
+                style="width: 48px; height: 48px; border-radius: 50%;">
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">평균 B/C (비용편익)</span>
+              <h3 id="stat-avg-bc">1.34</h3>
+              <span class="stat-meta text-primary"><i class="fa-solid fa-circle-check"></i> 타당성 기준(1.0) 통과!</span>
+            </div>
+          </div>
+
+          <div class="stat-card cute-card">
+            <div class="stat-icon-wrapper">
+              <img src="assets/monkey_dance.png" class="stat-thumb" alt=""
+                style="width: 48px; height: 48px; border-radius: 50%;">
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">시민 수용성 지수</span>
+              <h3 id="stat-avg-accept">74.2 %</h3>
+              <span class="stat-meta text-info"><i class="fa-solid fa-users"></i> 주민들의 적극적인 호응</span>
+            </div>
+          </div>
+
+          <div class="stat-card cute-card">
+            <div class="stat-icon-wrapper">
+              <img src="assets/monkey_look.jpg" class="stat-thumb" alt=""
+                style="width: 48px; height: 48px; border-radius: 50%;">
+            </div>
+            <div class="stat-info">
+              <span class="stat-label">생기부 연계 연구 분야</span>
+              <h3 id="stat-domain-top">교육·청소년 / 안전</h3>
+              <span class="stat-meta text-warning"><i class="fa-solid fa-star"></i> 학종 행정학과 맞춤</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="dashboard-grid">
+          <div class="card card-chart cute-card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-coins" style="color:#f59e0b;"></i> 분야별 소요 예산 규모</h3>
+              <span class="card-tag">공공재정 행정 💰</span>
+            </div>
+            <div class="card-body">
+              <canvas id="categoryChart"></canvas>
+            </div>
+          </div>
+
+          <div class="card card-chart cute-card">
+            <div class="card-header">
+              <h3><i class="fa-solid fa-chart-line" style="color:#10b981;"></i> 정책별 B/C(비용편익) 타당성</h3>
+              <span class="card-tag">기준선(1.0) 검증 🎯</span>
+            </div>
+            <div class="card-body">
+              <canvas id="feasibilityChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Policy Table -->
+        <div class="card mt-4 cute-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-clipboard-list" style="color:#3b82f6;"></i> 진행 중인 정책 아카이브</h3>
+            <span class="text-muted">귀여운 아이콘을 눌러 수정하거나 보고서를 뽑아보세요!</span>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="policy-table">
+                <thead>
+                  <tr>
+                    <th>정책명</th>
+                    <th>행정 분야</th>
+                    <th>주관 행정청</th>
+                    <th>예산</th>
+                    <th>B/C 비율</th>
+                    <th>주민 수용도</th>
+                    <th>관리</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-policy-tbody">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: 정책 입안기 -->
+      <section id="tab-policy-builder" class="tab-pane">
+        <div class="form-container">
+          <div class="card cute-card">
+            <div class="card-header">
+              <div>
+                <h2><i class="fa-solid fa-feather-pointed" style="color:#f59e0b;"></i> 스마트 정책 입안 프레임워크 📝</h2>
+                <p class="subtitle mt-1">행정학의 핵심인 '문제정의 ➔ 목표설정 ➔ 대안탐색 ➔ B/C평가 ➔ 갈등관리'를 완성해요.</p>
+              </div>
+              <div class="header-action-group">
+                <button type="button" class="btn btn-sm btn-outline btn-cute" id="auto-fill-ai-btn">
+                  <img src="assets/monkey_sparkle.png" class="btn-icon-img" alt=""> 고2 우수 정책 예시 자동 완성!
+                </button>
+              </div>
+            </div>
+
+            <form id="policy-form" class="card-body">
+              <input type="hidden" id="policy-id" value="">
+
+              <!-- 1단계: 정책 개요 -->
+              <div class="form-section">
+                <h4 class="form-section-title"><span class="step-num">1</span> 정책 개요 및 행정 주체 🏛️</h4>
+                <div class="form-row">
+                  <div class="form-group flex-2">
+                    <label for="policy-title">정책(사업) 명칭 <span class="required">*</span></label>
+                    <input type="text" id="policy-title" placeholder="예: 청소년 안심 귀갓길 스마트 보안등 및 자율방범 연계 조례안" required>
+                  </div>
+                  <div class="form-group flex-1">
+                    <label for="policy-category">행정 정책 분야 <span class="required">*</span></label>
+                    <select id="policy-category" required>
+                      <option value="청소년·교육 복지">청소년·교육 복지</option>
+                      <option value="스마트시티·도시재생">스마트시티·도시재생</option>
+                      <option value="환경·기후위기 대응">환경·기후위기 대응</option>
+                      <option value="교통·안전 행정">교통·안전 행정</option>
+                      <option value="주민참여·지방자치">주민참여·지방자치</option>
+                      <option value="디지털정부·공공데이터">디지털정부·공공데이터</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group flex-1">
+                    <label for="policy-target">정책 수혜 대상 및 집행 지역</label>
+                    <input type="text" id="policy-target" placeholder="예: 관내 중·고등학생 및 심야 보행 취약계층 (OO시/구)">
+                  </div>
+                  <div class="form-group flex-1">
+                    <label for="policy-authority">주관 행정청 및 협업 부서</label>
+                    <input type="text" id="policy-authority" placeholder="예: OO시 안전총괄과, OO경찰서 생활안전계, OO교육지원청">
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2단계: 문제 정의 및 배경 -->
+              <div class="form-section">
+                <h4 class="form-section-title"><span class="step-num">2</span> 사회 문제 정의 & 행정 대안 🔍</h4>
+                <div class="form-group">
+                  <label for="policy-problem">공공의 개입이 필요한 구체적 문제 (현황 및 한계) <span class="required">*</span></label>
+                  <textarea id="policy-problem" rows="3"
+                    placeholder="어떤 사회적 문제로 인해 행정이 개입해야 하나요? (예: 학원가 주변 야간 조도 미달, 순찰 인력의 한계 등)" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="policy-solution">구체적 정책 대안 및 실천 방안 (행정 수단) <span class="required">*</span></label>
+                  <textarea id="policy-solution" rows="4"
+                    placeholder="행정이 어떤 수단(예산 투입, 조례 제정, IoT 센서 설치, 민관 거버넌스 등)을 통해 문제를 해결하나요?" required></textarea>
+                </div>
+              </div>
+
+              <!-- 3단계: B/C 분석 -->
+              <div class="form-section">
+                <h4 class="form-section-title"><span class="step-num">3</span> 재정 계획 및 비용·편익(B/C) 추정치 💵</h4>
+                <div class="form-row">
+                  <div class="form-group flex-1">
+                    <label for="policy-cost">총 소요 예산 (연간, 백만원 단위) <span class="required">*</span></label>
+                    <div class="input-unit">
+                      <input type="number" id="policy-cost" min="1" step="1" value="120" required>
+                      <span class="unit">백만원</span>
+                    </div>
+                  </div>
+                  <div class="form-group flex-1">
+                    <label for="policy-benefit">사회적 총 편익 (연간, 백만원 환산) <span class="required">*</span></label>
+                    <div class="input-unit">
+                      <input type="number" id="policy-benefit" min="1" step="1" value="180" required>
+                      <span class="unit">백만원</span>
+                    </div>
+                  </div>
+                  <div class="form-group flex-1">
+                    <label>비용편익비(B/C) 자동 진단</label>
+                    <div class="bc-display-box" id="calc-bc-display">1.50 (타당)</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4단계: 이해관계자 갈등 관리 -->
+              <div class="form-section">
+                <h4 class="form-section-title"><span class="step-num">4</span> 공공 거버넌스 & 이해관계자 갈등 조정 🤝</h4>
+                <div class="form-row">
+                  <div class="form-group flex-1">
+                    <label for="stakeholder-pro">찬성/수혜 그룹 및 입장</label>
+                    <input type="text" id="stakeholder-pro" placeholder="예: 학부모회, 학생 자치회 - 야간 안전 보장 및 통학로 개선 환영">
+                  </div>
+                  <div class="form-group flex-1">
+                    <label for="stakeholder-con">우려/반대 그룹 및 갈등 요소</label>
+                    <input type="text" id="stakeholder-con" placeholder="예: 인근 상인 및 주택가 - CCTV 사생활 침해 우려, 예산 낭비 논란">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="conflict-resolution">행정적 갈등 조정 및 주민 소통 전략</label>
+                  <textarea id="conflict-resolution" rows="2"
+                    placeholder="주민 공청회 개최, 비식별화 기술 적용, 주민참여예산제 연계 등"></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-outline btn-cute" id="reset-form-btn">초기화</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-cute-primary" id="save-policy-btn">
+                  <img src="assets/monkey_sparkle.png" class="btn-icon-img" alt=""> 정책 저장하고 시뮬레이션 돌려보기!
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: 거버넌스 시뮬레이션 -->
+      <section id="tab-governance-sim" class="tab-pane">
+        <div class="sim-container">
+          <div class="card mb-4 cute-card">
+            <div class="card-header">
+              <div>
+                <h2><i class="fa-solid fa-sliders" style="color:#8b5cf6;"></i> 정책 타당성 & 가상 시민 반응 시뮬레이터 🎮</h2>
+                <p class="subtitle">슬라이더를 움직여 예산과 소통 빈도를 조절해 보세요! 몽키 주무관의 반응이 실시간으로 바뀝니다.</p>
+              </div>
+              <div class="sim-selector">
+                <label for="sim-policy-select"><strong>대상 정책:</strong> </label>
+                <select id="sim-policy-select" class="form-select"></select>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <!-- Live Reaction Mascot Card -->
+              <div class="reaction-mascot-box">
+                <img id="sim-mascot-img" src="assets/monkey_sparkle.png" class="reaction-avatar" alt="반응 몽키"
+                  style="width: 70px; height: 70px; border-radius: 50%;">
+                <div class="reaction-speech">
+                  <div class="reaction-badge" id="sim-mascot-tag">최우수 정책 추천! 🌟</div>
+                  <p id="sim-mascot-speech">"와! 주민 공청회도 듬뿍 열고 B/C 타당성도 1.45가 넘어요! 주민들이 너무 좋아합니다!"</p>
+                </div>
+              </div>
+
+              <div class="sim-controls-grid mt-4">
+                <!-- Slider 1 -->
+                <div class="control-box">
+                  <div class="control-header">
+                    <label><i class="fa-solid fa-sack-dollar" style="color:#f59e0b;"></i> 사업 예산 조정율</label>
+                    <span class="control-val" id="val-budget">100%</span>
+                  </div>
+                  <input type="range" id="slider-budget" min="50" max="200" step="5" value="100">
+                  <span class="control-desc">예산이 너무 많으면 세금 낭비 논란, 적으면 효과 감소</span>
+                </div>
+
+                <!-- Slider 2 -->
+                <div class="control-box">
+                  <div class="control-header">
+                    <label><i class="fa-solid fa-comments" style="color:#0ea5e9;"></i> 주민 공청회 횟수</label>
+                    <span class="control-val" id="val-deliberation">3 회</span>
+                  </div>
+                  <input type="range" id="slider-deliberation" min="0" max="10" step="1" value="3">
+                  <span class="control-desc">숙의민주주의적 대화로 주민 갈등을 사전에 해소해요</span>
+                </div>
+
+                <!-- Slider 3 -->
+                <div class="control-box">
+                  <div class="control-header">
+                    <label><i class="fa-solid fa-bullhorn" style="color:#10b981;"></i> 공공데이터 투명성</label>
+                    <span class="control-val" id="val-transparency">70 점</span>
+                  </div>
+                  <input type="range" id="slider-transparency" min="20" max="100" step="5" value="70">
+                  <span class="control-desc">정보를 솔직하게 투명 공개할수록 행정 신뢰도 UP!</span>
+                </div>
+
+                <!-- Slider 4 -->
+                <div class="control-box">
+                  <div class="control-header">
+                    <label><i class="fa-solid fa-handshake" style="color:#ec4899;"></i> 민관 거버넌스 협력도</label>
+                    <span class="control-val" id="val-governance">60 %</span>
+                  </div>
+                  <input type="range" id="slider-governance" min="10" max="100" step="5" value="60">
+                  <span class="control-desc">경찰·시민단체·기업과 손잡는 뉴거버넌스 파트너십</span>
+                </div>
+              </div>
+
+              <!-- Simulation Metrics -->
+              <div class="sim-result-dashboard mt-4">
+                <div class="sim-result-card cute-card">
+                  <h4>수정 B/C (비용편익비)</h4>
+                  <div class="sim-metric" id="sim-bc-val">1.45</div>
+                  <div class="sim-verdict" id="sim-bc-status">경제적 타당성 통과</div>
+                </div>
+                <div class="sim-result-card cute-card">
+                  <h4>주민 지지 및 수용도</h4>
+                  <div class="sim-metric" id="sim-accept-val">81.5%</div>
+                  <div class="sim-verdict" id="sim-accept-status">높은 주민 지지 확보</div>
+                </div>
+                <div class="sim-result-card cute-card">
+                  <h4>행정 효율성 지수</h4>
+                  <div class="sim-metric" id="sim-efficiency-val">84 / 100</div>
+                  <div class="sim-verdict">실현 가능성 우수</div>
+                </div>
+                <div class="sim-result-card cute-card">
+                  <h4>종합 행정 평가 등급</h4>
+                  <div class="sim-metric text-primary" id="sim-grade-val">S 등급</div>
+                  <div class="sim-verdict">지자체 정책 채택 권장</div>
+                </div>
+              </div>
+
+              <!-- Radar Chart -->
+              <div class="sim-chart-wrapper mt-4">
+                <canvas id="simRadarChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: 정책 아카이브 & 보고서 출력 -->
+      <section id="tab-policy-list" class="tab-pane">
+        <div class="archive-header-card mb-4 cute-card">
+          <div class="archive-header-text">
+            <h2><i class="fa-solid fa-graduation-cap" style="color:#3b82f6;"></i> 생기부 세특 제출용 정식 정책 보고서 🖨️</h2>
+            <p class="subtitle">작성한 정책을 누르면 공공기관 표준 A4 보고서 양식이 완성됩니다. 인쇄 버튼을 눌러 PDF로 보관하세요!</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-primary btn-cute-primary" onclick="window.print()">
+              <i class="fa-solid fa-print"></i> PDF 다운로드 / 보고서 인쇄
+            </button>
+          </div>
+        </div>
+
+        <div class="archive-layout">
+          <!-- Policy List Column -->
+          <div class="policy-selector-col">
+            <div class="card cute-card">
+              <div class="card-header">
+                <h3>정책 보관함</h3>
+                <span id="policy-badge-count" class="badge">3개</span>
+              </div>
+              <div class="card-body p-0">
+                <div id="policy-list-container" class="policy-item-list">
+                  <!-- Dynamic items -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Printable Report Preview Column -->
+          <div class="policy-preview-col">
+            <div class="card report-paper" id="printable-report">
+              <!-- Report Document rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
